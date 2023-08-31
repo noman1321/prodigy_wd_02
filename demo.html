@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stopwatch</title>
+</head>
+<style>
+    *{
+        margin:0;
+        align-items: center;
+        padding:0;
+        
+    }
+    body{
+        width:100%;
+        height:100vh;
+        background: url(vintage.jpg)no-repeat;
+        background-size:cover;
+        background-position: center;
+        display:flex;
+        align-items:center;
+        justify-content: center;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+.container{
+    padding: 1rem;
+    max-width :300px;
+    text-align:centre;
+    position:relative;
+    border-radius:10px;
+    background-color: rgba(0, 0,0, 0.6);
+    
+}
+.time{
+    padding:1rem 0;
+    font-size:2rem;
+    align-items: center;
+    
+}
+h1,
+p{
+    color: #f8f8f8;
+    align-items: centre;
+    
+}
+button{
+    padding:0.4rem 1rem;
+    margin:0 0.2rem;
+    border-radius: 10px;
+    border: 1px solid #f8f8f8;
+    align-items: centre;
+
+}
+button:hover{
+    background-color: rgba(0, 0,0, 0.4);
+    color:#f8f8f8
+}
+</style>
+<body>
+
+    <div class="container">
+        <h1>stopwatch</h1>
+        <p class="time">
+            <span id="minutes">00</span>: <span id="seconds">00</span>: <span id="tens">00</span>
+        </p>
+        <button id="start">start</button>
+        <button id="stop">stop</button>
+        <button id="reset">reset</button>
+
+    </div>
+<script>
+    window.onload = function () {
+        console.log("hiiiii");
+        let minutes = 0;
+        let seconds = 0;
+        let tens = 0;
+        let appendMinutes = document.querySelector('#minutes');
+        let appendSeconds = document.querySelector('#seconds');
+        let appendTens = document.querySelector('#tens');
+
+        let startBtn = document.querySelector('#start');
+        let stopBtn = document.querySelector('#stop');
+        let resetBtn = document.querySelector('#reset'); // Changed 'restartBtn' to 'resetBtn'
+        let interval;
+
+        const startTimer = () => {
+            tens++;
+            if (tens <= 9) {
+                appendTens.innerHTML = '0' + tens;
+            }
+            if (tens > 9) {
+                appendTens.innerHTML = tens;
+            }
+
+            if (tens > 99) {
+                seconds++;
+                appendSeconds.innerHTML = '0' + seconds;
+                tens = 0;
+                appendTens.innerHTML = '0' + tens;
+            }
+
+            if (seconds > 9) {
+                appendSeconds.innerHTML = seconds;
+            }
+
+            if (seconds > 59) { // Changed 'second' to 'seconds'
+                minutes++;
+                appendMinutes.innerHTML = '0' + minutes;
+                seconds = 0;
+                appendSeconds.innerHTML = '0' + seconds;
+            }
+        };
+
+        startBtn.onclick = () => {
+            console.log("hello");
+            clearInterval(interval);
+            interval = setInterval(startTimer, 10); // Changed 'setinterval' to 'setInterval'
+        };
+        stopBtn.onclick = () => {
+            clearInterval(interval);
+        };
+        resetBtn.onclick = () => { // Changed 'restartBtn' to 'resetBtn'
+            clearInterval(interval);
+            tens = 0; // Changed '00' to 0
+            seconds = 0; // Changed '00' to 0
+            minutes = 0; // Changed '00' to 0
+            appendTens.innerHTML = '00';
+            appendSeconds.innerHTML = '00';
+            appendMinutes.innerHTML = '00';
+        };
+    };
+</script>
+</body>
+
+</html>
